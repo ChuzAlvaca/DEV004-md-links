@@ -51,8 +51,50 @@ const isFileOrDir = (route) => {
             }
         });
 }
+// ************* si es un archivo: lee el archivo *************
+const readFile = (path = './notebook.md') => {
+return new Promise((resolve, reject) => {
+    fs.readFile(path,'utf-8', (err,data)=> {
+        if (err){
+            reject(err)
+        } else{
+            resolve(data)
+            console.log(data)
+        }
+    });
+});
+}
 
-// si es un directorio: ¿tiene archivos?
+        
+
+
+
+// ************* si es un directorio: ¿tiene archivos? *************
+// Node.js program to demonstrate the
+// fs.readdirSync() method
+
+// Import the filesystem module
+// const fs = require('fs');
+
+// Function to get current filenames
+// in directory
+// filenames = fs.readdirSync(__dirname);
+
+// console.log("\nCurrent directory filenames:");
+// filenames.forEach(file => {
+// console.log(file);
+// });
+
+// // Function to get current filenames
+// // in directory with "withFileTypes"
+// // set to "true"
+
+// fileObjs = fs.readdirSync(__dirname, { withFileTypes: true });
+
+// console.log("\nCurrent directory files:");
+// fileObjs.forEach(file => {
+// console.log(file);
+// });
 
 // ************* abrirlo y leer los archivos *************
 
@@ -93,5 +135,6 @@ existRoute,
 mdExt,
 promiseAbsPath,
 isFileOrDir,
+readFile,
 
 };
