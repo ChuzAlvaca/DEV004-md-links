@@ -1,24 +1,56 @@
 
-const {mdExt} = require ('./index.js');
-const {existRoute} = require ('./index.js');
-const {promiseAbsPath} = require ('./index.js');
-const {isFileOrDir} = require ('./index.js');
-const {readFile} = require ('./index.js');
-
+const mdLinks = require("./index.js");
 
 // acá se guarda el tercer input en la terminal.
 const pathUser = process.argv[2];
 
-existRoute(pathUser).then(() => {console.log('la ruta sí existe');})
-.catch((error)=>{console.log(error)}); 
+mdLinks(pathUser)
+  .then((resv) => {
+    console.log(resv);
+  })
+  .catch((rej) => {
+    console.log(rej);
+  });
+  
 
-promiseAbsPath(pathUser).then(() => {console.log('hola');})
-.catch((error)=>{console.log(error)}); 
+// existRoute(pathUser)
+//   .then(() => {
+//     console.log();
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
-isFileOrDir(pathUser);
+// promiseAbsPath(pathUser)
+//   .then(() => {
+//     console.log("hola");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
-mdExt(pathUser).then(()=> {console.log('la ruta es un archivo md');})
-.catch((error)=>{console.log('la ruta no es un archivo md')});
+// isFileOrDir(pathUser);
 
-readFile(pathUser).then(()=> {console.log('la ruta es un archivo md');})
-.catch((error)=>{console.log('la ruta no es un archivo md')});
+// mdExt(pathUser)
+//   .then(() => {
+//     console.log("la ruta es un archivo md");
+//   })
+//   .catch((error) => {
+//     console.log("la ruta no es un archivo md");
+//   });
+
+// readFile(pathUser)
+//   .then(() => {
+//     console.log("la ruta es un archivo md");
+//   })
+//   .catch((error) => {
+//     console.log("la ruta no es un archivo md");
+//   });
+
+// dirFiles(pathUser)
+//   .then(() => {})
+//   .catch((error) => {
+//     console.log("la ruta no es un directorio");
+//   });
+
+// findUrls("hola como estas, youtube.com"); // creo que  el parametro seria el resultado de  readfile.
