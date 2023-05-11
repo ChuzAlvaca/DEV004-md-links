@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/ChuzAlvaca/DEV004-md-links#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "jest": "^29.5.0"
   }
 }
