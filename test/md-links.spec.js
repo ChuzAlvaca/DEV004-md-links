@@ -3,7 +3,7 @@ const { isPathAbsolute } = require("../data.js");
 const { pathAbs } = require("../data.js");
 const { mdExt } = require("../data.js");
 const { readFile } = require("../data.js");
-const {mdLinks} = require("../index.js");
+
 
 describe("pathExist", () => {
   it("si la ruta no existe devuelve false", () => {
@@ -47,7 +47,7 @@ describe("mdExt", () => {
   describe("readFile", () => {
     it("si el archivo tiene contenido, muestra el contenido", () => {
       return readFile("content.md").then((data) => {
-        expect(data).toBe("hola amigo, esto es una prueba");
+        expect(data).toBe("hola amigo, esto es una prueba www.google.com");
           });
         });
       });
@@ -58,12 +58,6 @@ describe("mdExt", () => {
               });
             });
           });
-          // describe("mdLinks", () => {
-          //   it("si mdLinks recibe una ruta relativa .md, retornará su contenido", () => {
-          //     return mdLinks("content.md").then((data) => {
-          //       expect(data).toBe("hola amigo, esto es una prueba");
-          //         });
-          //       });
-          //     });
+          
     });
 
