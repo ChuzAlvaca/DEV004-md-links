@@ -34,7 +34,7 @@ const mdLinks = (path, options) => {
               const urlsFound = findUrl(mdData);
               if (urlsFound) {
              const verifiedLinks = verifyLinks(urlsFound)
-             return verifiedLinks
+            //  resolve (verifiedLinks)
           }
               }
           })

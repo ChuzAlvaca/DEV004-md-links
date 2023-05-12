@@ -57,12 +57,16 @@ console.log(typeof GotUrls);
 const PROMESAS = GotUrls.map((url) => getStatus(url));
 Promise.allSettled(PROMESAS)
   .then((rptas) => {
-    rptas.forEach((res) => console.log("res: ", res.value.status));
+    rptas.forEach((res) => console.log("res: ", res.status));
   })
-  .catch((err) => console.log(err));
+  .catch((err) =>  {
+    err.forEach((res) => console.log("res: ", res.status));
+  })
+  (console.log(PROMESAS));
+  };
 
-return (console.log(PROMESAS));
-};
+
+
 
 
 

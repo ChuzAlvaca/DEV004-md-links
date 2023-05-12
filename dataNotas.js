@@ -233,22 +233,22 @@ const urls = [
 // .catch((err) => console.log(err))
 
 // console.log(PROMESAS)
-const getStatus = (url) =>{
-    return axios.get(url)
-}
+// const getStatus = (url) =>{
+//     return axios.get(url)
+// }
 
-const verifyLinks = (urls) => {
-  const GotUrls = urls.map((obj) => obj.link);
-  console.log(typeof GotUrls);
-  const PROMESAS = GotUrls.map((url) => getStatus(url));
-  Promise.allSettled(PROMESAS)
-    .then((rptas) => {
-      rptas.forEach((res) => console.log("res: ", res.value.status));
-    })
-    .catch((err) => console.log(err));
+// const verifyLinks = (urls) => {
+//   const GotUrls = urls.map((obj) => obj.link);
+//   console.log(typeof GotUrls);
+//   const PROMESAS = GotUrls.map((url) => getStatus(url));
+//   Promise.allSettled(PROMESAS)
+//     .then((rptas) => {
+//       rptas.forEach((res) => console.log("res: ", res.value.status));
+//     })
+//     .catch((err) => console.log(err));
 
-  return (console.log(PROMESAS));
-};
+//   return (console.log(PROMESAS));
+// };
 
 
 // const validateUrls = (urls) => {
