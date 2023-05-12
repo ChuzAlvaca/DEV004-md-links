@@ -22,8 +22,8 @@ const readFile = (path) => {
         reject(err);
       } else {
         const dataResolved = data;
-        resolve(dataResolved);
         console.log(dataResolved);
+        resolve (dataResolved);
       }
     });
   });
@@ -62,7 +62,8 @@ Promise.allSettled(PROMESAS)
   .catch((err) =>  {
     err.forEach((res) => console.log("res: ", res.status));
   })
-  (console.log(PROMESAS));
+  console.log(PROMESAS);
+  console.log(typeof(PROMESAS))
   };
 
 

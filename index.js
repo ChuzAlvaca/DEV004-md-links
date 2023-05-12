@@ -3,10 +3,9 @@ const { isPathAbsolute } = require("./data.js");
 const { pathAbs } = require("./data.js");
 const { pathExist } = require("./data.js");
 const { readFile } = require("./data.js");
-const {mdExt} = require("./data.js");
-const {findUrl} = require("./data.js")
-const {verifyLinks} = require("./data.js")
-
+const { mdExt } = require("./data.js");
+const { findUrl } = require("./data.js");
+const { verifyLinks } = require("./data.js");
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
@@ -19,12 +18,12 @@ const mdLinks = (path, options) => {
       } else {
         routeAbs = path;
       }
-      const isMdRoute = (mdExt(routeAbs) === '.md')
+      const isMdRoute = mdExt(routeAbs) === ".md";
       let lila;
       if (isMdRoute) {
         lila = path;
       } else {
-        reject('Ruta inválida, ingresa una ruta .md');
+        reject("Ruta inválida, ingresa una ruta .md");
       }
       if (lila) {
         readFile(lila)
@@ -33,10 +32,9 @@ const mdLinks = (path, options) => {
             if (mdData) {
               const urlsFound = findUrl(mdData);
               if (urlsFound) {
-             const verifiedLinks = verifyLinks(urlsFound)
-            //  resolve (verifiedLinks)
-          }
+                const verifiedLinks = verifyLinks(urlsFound);
               }
+            }
           })
           .catch((err) => {
             reject(err);
@@ -45,6 +43,7 @@ const mdLinks = (path, options) => {
     }
   });
 };
+console.log (typeof(verifiedLinks))
 
 // const mdLinks = (path, options) => {
 //   return new Promise((resolve, reject) => {
@@ -83,7 +82,6 @@ const mdLinks = (path, options) => {
 //   });
 // };
 
-
 // const mdLinks = (path, options) => {
 //   return new Promise((resolve, reject) => {
 //     if (!pathExist(path)) {
@@ -108,7 +106,7 @@ const mdLinks = (path, options) => {
 //           if (mdData) {
 //             const urlsFound = findUrl(mdData)
 //           }
-      
+
 //         }).catch((err) => {
 //           reject(err);
 //         });
@@ -117,11 +115,9 @@ const mdLinks = (path, options) => {
 //           resolve (urlStatus)
 //         }
 //       }
-     
+
 //     }
 //   });
 // };
 
-
 module.exports = mdLinks;
-
