@@ -11,6 +11,19 @@ const isPathAbsolute = (route) => path.isAbsolute(route);
 //  ***************si no es absoluta, conviertela a absoluta: ***************
 const pathAbs = (route) => path.resolve(route);
 
+//  ***************es un archivo o un directorio: ***************
+// const isFile = (route) => {
+//   fs.stat(route, (error, stats) => {
+//     if (error) {
+//       console.error(error);
+//       return (console.log('la ruta no es válida')) ;
+//     }
+//     if (stats.isFile()) {
+//       const routeIsFile = route;
+//   }
+// })
+// };
+
 //************* ¿la ruta es .md? *************
 const mdExt = (route) => path.extname(route);
 
@@ -20,9 +33,9 @@ const readFile = (path) => {
     fs.readFile(path, "utf-8", (err, data) => {
       if (err) {
         reject(err);
-      } else {
+      } else  {
         const dataResolved = data;
-        console.log(dataResolved);
+        // console.log(dataResolved);
         resolve (dataResolved);
       }
     });
@@ -41,8 +54,7 @@ const findUrl = (text) => {
       };
       ArrTotalLinks.push(linkObj);
     }
-  
-    return ArrTotalLinks;
+    return (ArrTotalLinks);
   };
 
 // ************* validar que los links funcionan *************
@@ -54,7 +66,7 @@ const getStatus = (url) =>{
 const verifyLinks = (urls) => {
   // console.log ('esto es urls', urls)
 const GotUrls = urls.map((obj) => obj.href);
-console.log(typeof GotUrls);
+// console.log(typeof GotUrls);
 const PROMESAS = GotUrls.map((url) => getStatus(url));
 Promise.allSettled(PROMESAS)
   .then((url) => {
@@ -95,4 +107,5 @@ module.exports = {
   pathExist,
   findUrl,
   verifyLinks,
+  // isFile,
 };

@@ -2,7 +2,6 @@ const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
 
-
 // notas OH LUNA
 // refactorizar, solo devuelve un booleano, no hay errores. no es necesario darle tantas vueltas.
 // cuando algo devuelva una promesa, entonces si hay que usar then y catch
@@ -28,55 +27,39 @@ const pathAbs = (route) => path.resolve(route);
 
 // }
 // *************¿la ruta, es un archivo o un directorio?*************
+const isFile = (route) => {
+  fs.stat(route, (error, stats) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    if (stats.isFile()) {
+      const routeIsFile = route;
+      console.log("La ruta es un archivo");
+    
+  }
+})
+};
 
-//   const isFileOrDir = (route) => {
-//     fs.stat(route, (error, stats) => {
-//       if (error) {
-//         callback(error, null);
-//       } else if (stats.isFile()) {
-//         callback(null, 'archivo');
-//       } else if (stats.isDirectory()) {
-//         callback(null, 'directorio');
-//       }
-//     });
-//   };
-// const isFileOrDir = (route) => fs.stat.isFile(route);
-// console.log ('esto es fileordir parametro',)
 const isFileOrDir = (route) => {
   fs.stat(route, (error, stats) => {
     if (error) {
-      resolve(error);
+      console.error(error);
+      return;
+    }
+
+    if (stats.isFile()) {
+      const routeIsFile = route;
+      console.log("La ruta es un archivo");
     } else {
-      const routeIsFile = ("Path is file:", stats.isFile());
-      if (routeIsFile === true) {
-        console.log("la ruta es un archivo");
-      } else {
-        const routeIsDoc = ("Path is directory:", stats.isDirectory());
-        if (routeIsDoc === true) {
-          console.log("la ruta es un directorio");
-        }
-      }
+      const routeIsDirectory = route;
+      console.log("La ruta es un directorio");
     }
   });
 };
 
-// isFileOrDir ('/Users/chuz/Desktop/laboratoria/DEV004-md-links/notebook.md');
-
-// const isFileOrDirSimple = (route) => {
-//     fs.stats((route) => {
-//     if (route.isFile()) {
-//         const isFile= route;
-//         return route;
-//     }
-
-//     else {
-//         const isDirectory = route
-//         return route;
-//     }
-//     };
-// }
-
-// isFileOrDirSimple ('/Users/chuz/Desktop/laboratoria/DEV004-md-links/notebook.md');
+// isFileOrDir('juanito')
+isFile('juanito')
 
 //************* ¿la ruta es .md? *************
 
@@ -118,6 +101,7 @@ const dirFiles = (route) => {
     });
   });
 };
+
 // ************* abrir directorio y leer los archivos *************
 // creo que se puede reutilizar la funcion de leer archivos.
 // no creo que sea necesario hgacer una nueva.
@@ -250,7 +234,6 @@ const urls = [
 //   return (console.log(PROMESAS));
 // };
 
-
 // const validateUrls = (urls) => {
 //   const promesas = urls.map((url) => {
 //     return axios.get(url.link)
@@ -319,6 +302,6 @@ module.exports = {
   pathAbs,
   pathExist,
   findUrl,
-  verifyLinks,
-  getStatus,
+  // verifyLinks,
+  // getStatus,
 };
