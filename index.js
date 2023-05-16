@@ -6,7 +6,6 @@ const { readFile } = require("./data.js");
 const { mdExt } = require("./data.js");
 const { findUrl } = require("./data.js");
 const { verifyLinks } = require("./data.js");
-const {isFile} = require("./data.js");
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
@@ -19,7 +18,6 @@ const mdLinks = (path, options) => {
       } else {
         routeAbs = path;
       }
-      // el llamado a esa otra funcion. 
       const isMdRoute = mdExt(routeAbs) === ".md";
       let lila;
       if (isMdRoute) {
@@ -46,4 +44,5 @@ const mdLinks = (path, options) => {
   });
 };
 
-module.exports = mdLinks;
+module.exports = mdLinks
+
