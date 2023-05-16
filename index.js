@@ -6,7 +6,6 @@ const { readFile } = require("./data.js");
 const { mdExt } = require("./data.js");
 const { findUrl } = require("./data.js");
 const { verifyLinks } = require("./data.js");
-// const {isFile} = require("./data.js");
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {

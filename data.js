@@ -111,5 +111,4 @@ module.exports = {
   pathExist,
   findUrl,
   verifyLinks,
-  // isFile,
 };
