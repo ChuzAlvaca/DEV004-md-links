@@ -3,10 +3,40 @@ const { isPathAbsolute } = require("../data.js");
 const { pathAbs } = require("../data.js");
 const { mdExt } = require("../data.js");
 const { readFile } = require("../data.js");
+const  mdLinks  = require("../index.js");
 
+// cómo testear funciones que devuelven una promesa:
+describe("mdLinks", () => {
+  // pretendo exceder el tiempo de prueba, pero aun falla la prueba. 
+  test.concurrent("mdlinks procesa un solo archivo con tres links", () => {
+    const ruta = "content.md";
+    return mdLinks(ruta).then((array) => {
+      expect(array).toEqual([
+        {
+          text: 'Markdown',
+          href: 'https://es.wikipedia.org/wiki/Markdown',
+          status: 200,
+          ok: 'ok'
+        },
+        {
+          text: 'Node.js',
+          href: 'https://nodejs.org/es/',
+          status: 200,
+          ok: 'ok'
+        },
+        {
+          text: 'Markdown',
+          href: 'https://es.wikipedia.org/wiki/Markdown',
+          status: 404,
+          ok: 'fail'
+        }
+      ]);
+    });
+  });
+});
 
 describe("pathExist", () => {
-  it("si la ruta no existe devuelve false", () => {
+ it("si la ruta no existe devuelve false", () => {
     expect(pathExist("noexiste.md")).toBe(false);
   });
   it("si la ruta existe, devuelve true", () => {
@@ -46,8 +76,8 @@ describe("mdExt", () => {
   });
   describe("readFile", () => {
     it("si el archivo tiene contenido, muestra el contenido", () => {
-      return readFile("content.md").then((data) => {
-        expect(data).toBe("hola amigo, esto es una prueba www.google.com");
+      return readFile("testcontenido.md").then((data) => {
+        expect(data).toBe("hola, yo soy google.com");
           });
         });
       });

@@ -54,6 +54,10 @@ const findUrl = (text) => {
       };
       ArrTotalLinks.push(linkObj);
     }
+    if (ArrTotalLinks === []) {
+      throw ("no existen rutas md")
+    
+    }
     return (ArrTotalLinks);
   };
 
