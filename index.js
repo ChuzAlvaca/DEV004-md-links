@@ -1,4 +1,5 @@
 const fs = require("fs");
+const chalk = require ('chalk')
 const { isPathAbsolute } = require("./data.js");
 const { pathAbs } = require("./data.js");
 const { pathExist } = require("./data.js");
@@ -7,10 +8,11 @@ const { mdExt } = require("./data.js");
 const { findUrl } = require("./data.js");
 const { verifyLinks } = require("./data.js");
 
+
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
     if (!pathExist(path)) {
-      reject("La ruta no existe");
+      reject(chalk.bgCyanBright("La ruta no existe"));
     } else {
       let routeAbs;
       if (!isPathAbsolute(path)) {
@@ -23,7 +25,7 @@ const mdLinks = (path, options) => {
       if (isMdRoute) {
         lila = path;
       } else {
-        reject("Ruta inválida, ingresa una ruta .md");
+        reject(chalk.bgMagenta("Ruta inválida, ingresa una ruta .md"));
       }
       if (lila) {
         readFile(lila)
@@ -33,6 +35,7 @@ const mdLinks = (path, options) => {
               const urlsFound = findUrl(mdData);
               if (urlsFound) {
                 const verifiedLinks = verifyLinks(urlsFound);
+                resolve(verifiedLinks)
               }
             }
           })
@@ -43,6 +46,13 @@ const mdLinks = (path, options) => {
     }
   });
 };
-
+// mdLinks('content.md')
+//   .then((resv) => {
+//     console.log(typeof (resv[0].href)) // Aquí puedes obtener los enlaces verificados y trabajar con ellos
+//   })
+//   .catch((rej) => {
+//     console.log(rej);
+//   });
 module.exports = mdLinks
+
 
