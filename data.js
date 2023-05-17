@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const axios = require('axios');
+const chalk = require('chalk');
 
 // ***************LA RUTA EXISTE****************
 const pathExist = (route) => fs.existsSync(route);
@@ -50,12 +51,12 @@ const findUrl = (text) => {
     for (const match of matches) {
       const linkObj = {
         text: match[1],
-        href: match[2]
+        href: match[2],
       };
       ArrTotalLinks.push(linkObj);
     }
     if (ArrTotalLinks === []) {
-      throw ("no existen rutas md")
+      throw (chalk.magenta("no existen rutas md"))
     
     }
     return (ArrTotalLinks);
@@ -66,38 +67,62 @@ const findUrl = (text) => {
 const getStatus = (url) =>{
   return axios.get(url)
 }
-
 const verifyLinks = (urls) => {
-  // console.log ('esto es urls', urls)
-const GotUrls = urls.map((obj) => obj.href);
-// console.log(typeof GotUrls);
-const PROMESAS = GotUrls.map((url) => getStatus(url));
-Promise.allSettled(PROMESAS)
-  .then((url) => {
-    url.forEach((res,index) => {
-      if( res.value !== undefined && res.value.status === 200){
-        const verifiedStatus ={status: res.value.status}
-        const urlsIndex = urls[index]
-        const okOrFail200 = {ok: "ok"}
-        const verifiedObject200 = {...urlsIndex,...verifiedStatus,...okOrFail200}
-        console.log(verifiedObject200)
-      }else {
-        const linkNotFound = {status: 404}
-        const okOrFail404 = {ok: "fail"}
-        const urlsIndex404 = urls[0]
-        const verifiedObject404 = { ...urlsIndex404,...linkNotFound,...okOrFail404}
-        console.log(verifiedObject404)
-      }
+  const GotUrls = urls.map((obj) => obj.href);
+  const PROMESAS = GotUrls.map((url) => getStatus(url));
+  
+  return Promise.allSettled(PROMESAS)
+    .then((results) => {
+      return results.map((res, index) => {
+        if (res.value !== undefined && res.value.status === 200) {
+          const verifiedStatus = { status: res.value.status };
+          const urlsIndex = urls[index];
+          const okOrFail200 = { ok: "ok" };
+          return { ...urlsIndex, ...verifiedStatus, ...okOrFail200 };
+        } else {
+          const linkNotFound = { status: 404 };
+          const okOrFail404 = { ok: "fail" };
+          const urlsIndex404 = urls[index];
+          return { ...urlsIndex404, ...linkNotFound, ...okOrFail404};
+        }
       });
-  })
-  .catch((error) =>  {
-     console.log("error: ", error);
-  })
-  // console.log(PROMESAS);
-  // console.log(typeof(PROMESAS))
-  };
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
+};
 
-// aprovechar los indieces como parametros del foreach y retornar el objeto solicitado. 
+// const verifyLinks = (urls) => {
+//   // console.log ('esto es urls', urls)
+// const GotUrls = urls.map((obj) => obj.href);
+// // console.log(typeof GotUrls);
+// const PROMESAS = GotUrls.map((url) => getStatus(url));
+// Promise.allSettled(PROMESAS)
+//   .then((url) => {
+//     url.forEach((res,index) => {
+//       if( res.value !== undefined && res.value.status === 200){
+//         const verifiedStatus ={status: res.value.status}
+//         const urlsIndex = urls[index]
+//         const okOrFail200 = ({ok: chalk.magenta ("ok")});
+//         const verifiedObject200 = {...urlsIndex,...verifiedStatus,...okOrFail200}
+//         return(verifiedObject200)
+//       }else {
+//         const linkNotFound = {status: 404}
+//         const okOrFail404 = {ok: "fail"}
+//         const urlsIndex404 = urls[0]
+//         const verifiedObject404 = { ...urlsIndex404,...linkNotFound,...okOrFail404}
+//         return(verifiedObject404)
+//       }
+//       });
+//   })
+//   .catch((error) =>  {
+//      console.log("error: ", error);
+//   })
+//   // console.log(PROMESAS);
+//   // console.log(typeof(PROMESAS))
+//   };
+
+// // aprovechar los indieces como parametros del foreach y retornar el objeto solicitado. 
 
 
 
