@@ -78,7 +78,7 @@ const verifyLinks = (urls) => {
           const verifiedStatus = { status: res.value.status };
           const urlsIndex = urls[index];
           const okOrFail200 = { ok: "ok" };
-          return { ...urlsIndex, ...verifiedStatus, ...okOrFail200 };
+          return {...urlsIndex, ...verifiedStatus, ...okOrFail200 };
         } else {
           const linkNotFound = { status: 404 };
           const okOrFail404 = { ok: "fail" };

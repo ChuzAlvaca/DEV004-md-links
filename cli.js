@@ -1,63 +1,57 @@
 const mdLinks = require("./index.js");
-const chalk = require('chalk');
+const chalk = require("chalk");
 
 // acá se guarda el tercer input en la terminal.
 const pathUser = process.argv[3];
 
 if (process.argv.includes("--validate")) {
-  (mdLinks)(pathUser)
+  mdLinks(pathUser)
     .then((resv) => {
       console.log(resv);
     })
     .catch((rej) => {
       console.log(rej);
     });
-} else if (process.argv.includes("--stats")) {
+} else if (
+  process.argv.includes("--stats") ||
+  process.argv.includes("--stats--validate")
+) {
   mdLinks(pathUser)
     .then((resv) => {
       const totalLinks = resv.length;
-      console.log(chalk.bgMagenta("Total Links:"), chalk.bgCyanBright(totalLinks));
-    })
-    .catch((rej) => {
-      console.log(rej);
-    });
-} else if (process.argv.includes("--stats--validate")) {
-  mdLinks(pathUser)
-    .then((resv) => {
-      console.log(chalk.bgMagenta('typeaste --stats--validate'))
+      console.log(
+        chalk.bgMagenta("Total Links:"),
+        chalk.bgCyanBright(totalLinks)
+      );
+      const objValidated = resv;
+      const uniqueLinks = [];
+      const hrefSet = new Set();
+      objValidated.forEach((obj) => {
+        if (!hrefSet.has(obj.href)) {
+          hrefSet.add(obj.href);
+          uniqueLinks.push(obj);
+        }
+      });
+      console.log(
+        chalk.bgMagenta("Unique Links:"),
+        chalk.bgCyan(uniqueLinks.length)
+      );
+
+      if (process.argv.includes("--stats--validate")) {
+        const brokenLinks = objValidated.filter((obj) => obj.status === 404);
+        console.log(
+          chalk.bgMagenta("Broken Links:"),
+          chalk.bgCyan(brokenLinks.length)
+        );
+      }
     })
     .catch((rej) => {
       console.log(rej);
     });
 } else {
-  console.error(chalk.bgMagenta("Error: Please use --validate or --stats or --stats--validate"));
+  console.error(
+    chalk.bgMagenta(
+      "Error: Please use --validate or --stats or --stats--validate"
+    )
+  );
 }
-
-// if (process.argv.includes('--validate')) {
-//   mdLinks(pathUser)
-//     .then((resv) => {
-//       console.log(resv);
-//     })
-//     .catch((rej) => {
-//       console.log(rej);
-//     })
-//     }
-//   else {
-//     console.error('Error: Please use the --validate option');
-//   }
-
-// mdLinks(pathUser)
-//   .then((resv) => {
-//     console.log(resv);
-//   })
-//   .catch((rej) => {
-//     console.log(rej);
-//   });
-
-// if(!process.argv.includes('--validate') || !process.argv.includes('--stats') ){
-//   throw ('try with: --validate or --stats or --stats--validate')
-// }else if (process.argv.includes('--stats'))
-// {
-//   console.log('No hay validate');
-
-// }
