@@ -25,8 +25,8 @@ describe("mdLinks", () => {
           ok: 'ok'
         },
         {
-          text: 'Markdown',
-          href: 'https://es.wikipedia.org/wiki/Markdown',
+          text: 'motor de JavaScript V8 de Chrome',
+          href: 'https://developers.google.com/v80998/',
           status: 404,
           ok: 'fail'
         }
