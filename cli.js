@@ -1,10 +1,15 @@
+#!/usr/bin/env node
+// linea para que pueda ejecutarse el comando md.links.
 const mdLinks = require("./index.js");
 const chalk = require("chalk");
 
 // acá se guarda el tercer input en la terminal.
-const pathUser = process.argv[3];
+// console.log('esto es agr', process.argv[2])
+const pathUser = process.argv[2];
+// console.log(process.argv)
 
-if (process.argv.includes("--validate")) {
+if (process.argv.includes("validate")) {
+  console.log('entro')
   mdLinks(pathUser)
     .then((resv) => {
       console.log(resv);
@@ -13,8 +18,8 @@ if (process.argv.includes("--validate")) {
       console.log(rej);
     });
 } else if (
-  process.argv.includes("--stats") ||
-  process.argv.includes("--stats--validate")
+  process.argv.includes("stats") ||
+  process.argv.includes("stats-validate")
 ) {
   mdLinks(pathUser)
     .then((resv) => {
@@ -37,7 +42,7 @@ if (process.argv.includes("--validate")) {
         chalk.bgCyan(uniqueLinks.length)
       );
 
-      if (process.argv.includes("--stats--validate")) {
+      if (process.argv.includes("stats-validate")) {
         const brokenLinks = objValidated.filter((obj) => obj.status === 404);
         console.log(
           chalk.bgMagenta("Broken Links:"),

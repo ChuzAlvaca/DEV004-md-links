@@ -15,7 +15,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "md-links": "node cli.js"
+  },
+  "bin": {
+    "md-links": "./cli.js"
   },
   "repository": {
     "type": "git",
