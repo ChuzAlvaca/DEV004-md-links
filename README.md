@@ -55,3 +55,4 @@ md-links fue creada como parte del bootcamp Laboratoria, con la finalidad de apr
 - [Chuz Álvarez](https://github.com/ChuzAlvaca)
 
 # Visual representation of the process: 
+(https://i.postimg.cc/263hrcb4/mapa-api.png)
