@@ -56,4 +56,4 @@ md-links fue creada como parte del bootcamp Laboratoria, con la finalidad de apr
 
 # Visual representation of the process: 
 ![mapa API](https://imagizer.imageshack.com/img922/9223/baZFiR.png)
-![mapa CLI](https://imagizer.imageshack.com/img922/9223/baZFiR.png)
+![mapa CLI](https://imagizer.imageshack.com/img922/4417/S6cYdt.png)
