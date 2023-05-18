@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
-const axios = require('axios');
-const chalk = require('chalk');
+const axios = require("axios");
+const chalk = require("chalk");
 
 // ***************LA RUTA EXISTE****************
 const pathExist = (route) => fs.existsSync(route);
@@ -33,12 +33,11 @@ const readFile = (path) => {
 // ************* ¿existen links? *************
 const findUrl = (text) => {
   if (text.length === 0) {
-    throw new Error( "no existen rutas md");
+    throw new Error("no existen rutas md");
   } else {
     const regexp = /\[(.*?)\]\((.*?)\)/g;
     const matches = text.matchAll(regexp);
     const ArrTotalLinks = [];
-
     for (const match of matches) {
       const linkObj = {
         text: match[1],
@@ -52,14 +51,12 @@ const findUrl = (text) => {
 };
 
 // ************* validar que los links funcionan *************
-
-const getStatus = (url) =>{
-  return axios.get(url)
-}
+const getStatus = (url) => {
+  return axios.get(url);
+};
 const verifyLinks = (urls) => {
   const GotUrls = urls.map((obj) => obj.href);
   const PROMESAS = GotUrls.map((url) => getStatus(url));
-  
   return Promise.allSettled(PROMESAS)
     .then((results) => {
       return results.map((res, index) => {
@@ -67,12 +64,12 @@ const verifyLinks = (urls) => {
           const verifiedStatus = { status: res.value.status };
           const urlsIndex = urls[index];
           const okOrFail200 = { ok: "ok" };
-          return {...urlsIndex, ...verifiedStatus, ...okOrFail200 };
+          return { ...urlsIndex, ...verifiedStatus, ...okOrFail200 };
         } else {
           const linkNotFound = { status: 404 };
           const okOrFail404 = { ok: "fail" };
           const urlsIndex404 = urls[index];
-          return { ...urlsIndex404, ...linkNotFound, ...okOrFail404};
+          return { ...urlsIndex404, ...linkNotFound, ...okOrFail404 };
         }
       });
     })
@@ -81,7 +78,7 @@ const verifyLinks = (urls) => {
     });
 };
 
-// // aprovechar los indieces como parametros del foreach y retornar el objeto solicitado. 
+// // aprovechar los indieces como parametros del foreach y retornar el objeto solicitado.
 module.exports = {
   mdExt,
   isPathAbsolute,

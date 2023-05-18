@@ -9,7 +9,7 @@ const pathUser = process.argv[2];
 // console.log(process.argv)
 
 if (process.argv.includes("validate")) {
-  console.log('entro')
+  // console.log("entro");
   mdLinks(pathUser)
     .then((resv) => {
       console.log(resv);
