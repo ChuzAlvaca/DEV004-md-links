@@ -2,7 +2,7 @@
 #### md-links es una libreria que permite obtener de manera sencilla los links existentes en un archivo markdown .md.
 #### Md-links evalua el funcionamiento de los links encontrados, para reportar cuáles son los links que funcionan y cuáles están rotos. 
 # install
-``` npm install md```
+``` npm i luzalvaca-md-links```
 # usage
 ### Al ejecutar lo siguiente en la línea de comandos:
 ``` npm run md-links archivo.md validate```
