@@ -83,8 +83,8 @@ describe("mdExt", () => {
       });
       describe("readFile", () => {
         it("si el archivo está vacío, devuelve error", () => {
-          return readFile("empty.md").then((error) => {
-            expect(error).toBe(error);
+          return readFile("empty.md").then(( Error) => {
+            expect(Error).toBe(Error);
               });
             });
           });

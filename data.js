@@ -23,7 +23,7 @@ const readFile = (path) => {
       if (err) {
         reject(err);
       } else if (data.length === 0) {
-        reject(new Error(chalk.bgGreenBright("El archivo está vacío")));
+        throw new (Error(chalk.bgGreenBright("El archivo está vacío")));
       } else {
         resolve(data);
       }
@@ -35,7 +35,7 @@ const findUrl = (text) => {
   if (text.length === 0) {
     throw new Error("no existen rutas md");
   } else {
-    const regexp = /\[(.*?)\]\((.*?)\)/g;
+    const regexp = /\[(.*?)\]\((.*?)\)/g; // la expresion reg no es expresion
     const matches = text.matchAll(regexp);
     const ArrTotalLinks = [];
     for (const match of matches) {
@@ -55,7 +55,7 @@ const getStatus = (url) => {
   return axios.get(url);
 };
 const verifyLinks = (urls) => {
-  const GotUrls = urls.map((obj) => obj.href);
+  const GotUrls = urls.map((obj) => obj.href); 
   const PROMESAS = GotUrls.map((url) => getStatus(url));
   return Promise.allSettled(PROMESAS)
     .then((results) => {

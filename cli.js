@@ -7,7 +7,7 @@ const chalk = require("chalk");
 // console.log('esto es agr', process.argv[2])
 const pathUser = process.argv[2];
 // console.log(process.argv)
-
+//process.arg matriz que accede a los argumentos de la linea de comandos
 if (process.argv.includes("validate")) {
   // console.log("entro");
   mdLinks(pathUser)
@@ -21,6 +21,7 @@ if (process.argv.includes("validate")) {
   process.argv.includes("stats") ||
   process.argv.includes("stats-validate")
 ) {
+  //acá se está consumiendo la promesa mdLinks.
   mdLinks(pathUser)
     .then((resv) => {
       const totalLinks = resv.length;
@@ -30,8 +31,11 @@ if (process.argv.includes("validate")) {
       );
       const objValidated = resv;
       const uniqueLinks = [];
+      //  set.has() es una colección de valores únicos, se inicializa vacío y no acepta valores
+      // duplicados.
       const hrefSet = new Set();
       objValidated.forEach((obj) => {
+        //si el hrefSet no está en el obj, devuelve true, y lo pushea a uniquelinks, 
         if (!hrefSet.has(obj.href)) {
           hrefSet.add(obj.href);
           uniqueLinks.push(obj);
